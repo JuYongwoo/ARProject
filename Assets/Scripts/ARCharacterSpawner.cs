@@ -1,7 +1,8 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using System.Collections.Generic;
 
 public class ARCharacterSpawner : MonoBehaviour
 {
@@ -20,34 +21,27 @@ public class ARCharacterSpawner : MonoBehaviour
     private ARRaycastManager raycastManager;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
-    private Dictionary<Prefabs, GameObject> prefabmap = new Dictionary<Prefabs, GameObject>();
-    private GameObject spawnedCharacter;
+
+    private Dictionary<Prefabs, GameObject> prefabmap;
     private Prefabs nowindex = Prefabs.dog;
+
+    static public Action<string> changecharname;
 
     void Awake()
     {
         raycastManager = GetComponent<ARRaycastManager>();
 
-        prefabmap.Add(Prefabs.dog, Resources.Load<GameObject>("Prefabs/DogPolyart"));
-        prefabmap.Add(Prefabs.unitychan, Resources.Load<GameObject>("Prefabs/unitychan_dynamic"));
-        Canvas.changepreparedcharacter += () =>
-        {
+        initmap();
+        assignfunc();
+    }
 
-            spawnedCharacter = prefabmap[nowindex];
-            nowindex++;
-            if(nowindex >= Prefabs.count) nowindex = 0;
-
-        };
-
+    private void Start()
+    {
+        buttonevent(); //초기 1회 실행
     }
 
     void Update()
     {
-        // 캐릭터 이미 소환되었으면 무시
-        if (spawnedCharacter != null)
-            return;
-
-        // 터치 감지
         if (Input.touchCount == 0)
             return;
 
@@ -59,11 +53,29 @@ public class ARCharacterSpawner : MonoBehaviour
             if (raycastManager.Raycast(touch.position, hits, TrackableType.PlaneWithinPolygon))
             {
                 Pose hitPose = hits[0].pose;
-
-                // 캐릭터 소환
-                spawnedCharacter = Instantiate(characterPrefab, hitPose.position, hitPose.rotation);
+                characterPrefab = Instantiate(characterPrefab, hitPose.position, hitPose.rotation);
             }
         }
+    }
+    void initmap()
+    {
+        prefabmap = new Dictionary<Prefabs, GameObject>();
+        prefabmap.Add(Prefabs.dog, Resources.Load<GameObject>("Prefabs/DogPolyart"));
+        prefabmap.Add(Prefabs.unitychan, Resources.Load<GameObject>("Prefabs/unitychan_dynamic"));
+    }
+
+    void assignfunc()
+    {
+
+        Canvas.changepreparedcharacter += buttonevent;
+    }
+
+    void buttonevent()
+    {
+        characterPrefab = prefabmap[nowindex];
+        changecharname(Enum.GetName(typeof(Prefabs), nowindex));
+        nowindex++;
+        if (nowindex >= Prefabs.count) nowindex = 0;
     }
 
 }

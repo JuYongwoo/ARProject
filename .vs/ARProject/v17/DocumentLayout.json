@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\parsn\\OneDrive\\GitHub\\ARProject\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6F3B1A3C-2B4E-0C02-BD08-AEF49C45C39A}|Assembly-CSharp.csproj|c:\\users\\parsn\\onedrive\\github\\arproject\\assets\\scripts\\archaracterspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F3B1A3C-2B4E-0C02-BD08-AEF49C45C39A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\archaracterspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ARCharacterSpawner.cs",
+              "DocumentMoniker": "C:\\Users\\parsn\\OneDrive\\GitHub\\ARProject\\Assets\\Scripts\\ARCharacterSpawner.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ARCharacterSpawner.cs",
+              "ToolTip": "C:\\Users\\parsn\\OneDrive\\GitHub\\ARProject\\Assets\\Scripts\\ARCharacterSpawner.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ARCharacterSpawner.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-21T05:21:03.298Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
