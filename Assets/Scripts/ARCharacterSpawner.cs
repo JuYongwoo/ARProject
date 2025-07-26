@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
@@ -45,6 +46,9 @@ public class ARCharacterSpawner : MonoBehaviour
             return;
 
         Touch touch = Input.GetTouch(0);
+
+        if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+            return;
 
         // 화면을 터치했을 때 평면과 교차하는지 확인
         if (touch.phase == TouchPhase.Began)
