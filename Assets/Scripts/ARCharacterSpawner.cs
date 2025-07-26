@@ -11,12 +11,11 @@ public class ARCharacterSpawner : MonoBehaviour
     {
         dog,
         unitychan,
-        count
+        tentacle
     }
 
 
-    [Header("캐릭터 프리팹")]
-    public GameObject characterPrefab;
+    private GameObject characterPrefab;
 
     private ARRaycastManager raycastManager;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
@@ -60,9 +59,20 @@ public class ARCharacterSpawner : MonoBehaviour
     void initmap()
     {
         prefabmap = new Dictionary<Prefabs, GameObject>();
-        prefabmap.Add(Prefabs.dog, Resources.Load<GameObject>("Prefabs/DogPolyart"));
-        prefabmap.Add(Prefabs.unitychan, Resources.Load<GameObject>("Prefabs/unitychan_dynamic"));
+
+        foreach (Prefabs key in Enum.GetValues(typeof(Prefabs)))
+        {
+
+            string path = "Prefabs/"+key;
+            GameObject prefab = Resources.Load<GameObject>(path);
+
+            if (prefab != null)
+            {
+                prefabmap.Add(key, prefab);
+            }
+        }
     }
+
 
     void assignfunc()
     {
@@ -72,10 +82,12 @@ public class ARCharacterSpawner : MonoBehaviour
 
     void buttonevent()
     {
+        Array values = Enum.GetValues(typeof(Prefabs));
+        nowindex = (Prefabs)(((int)nowindex + 1) % values.Length);
+
         characterPrefab = prefabmap[nowindex];
-        changecharname(Enum.GetName(typeof(Prefabs), nowindex));
-        nowindex++;
-        if (nowindex >= Prefabs.count) nowindex = 0;
+        changecharname(nowindex.ToString());
     }
+
 
 }
