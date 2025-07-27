@@ -14,11 +14,11 @@ public class Tentacle : MonoBehaviour
     }
     private Dictionary<TentacleParts, GameObject> partMap = new Dictionary<TentacleParts, GameObject>();
 
-    void Awake()
+    void Start()
     {
         CacheParts();
         partMap[TentacleParts.TipCanvas].GetComponent<Canvas>().worldCamera = Camera.main;
-
+        partMap[TentacleParts.TipButton].GetComponent<Button>().onClick.AddListener(() => { Destroy(this.gameObject); });
 
     }
 
