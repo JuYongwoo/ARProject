@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 
@@ -8,22 +9,24 @@ public class Tentacle : MonoBehaviour
     public enum TentacleParts
     {
         TipSpike,
-        TipButton
+        TipButton,
+        TipCanvas
     }
     private Dictionary<TentacleParts, GameObject> partMap = new Dictionary<TentacleParts, GameObject>();
 
     void Awake()
     {
         CacheParts();
+        partMap[TentacleParts.TipCanvas].GetComponent<Canvas>().worldCamera = Camera.main;
+
+
     }
 
     void LateUpdate()
     {
-        if (partMap.TryGetValue(TentacleParts.TipSpike, out GameObject tip) &&
-            partMap.TryGetValue(TentacleParts.TipButton, out GameObject tipButton))
+        if (partMap.TryGetValue(TentacleParts.TipButton, out GameObject btn))
         {
-            tipButton.transform.position = tip.transform.position;
-            tipButton.transform.LookAt(Camera.main.transform);
+            btn.transform.LookAt(Camera.main.transform);
         }
     }
 

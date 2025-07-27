@@ -57,6 +57,11 @@ public class ARCharacterSpawner : MonoBehaviour
             {
                 Pose hitPose = hits[0].pose;
                 characterPrefab = Instantiate(characterPrefab, hitPose.position, hitPose.rotation);
+
+                Vector3 targetPos = Camera.main.transform.position;
+                targetPos.y = characterPrefab.transform.position.y;
+                characterPrefab.transform.LookAt(targetPos);
+
             }
         }
     }
@@ -81,7 +86,7 @@ public class ARCharacterSpawner : MonoBehaviour
     void assignfunc()
     {
 
-        Canvas.changepreparedcharacter += buttonevent;
+        TipCanvas.changepreparedcharacter += buttonevent;
     }
 
     void buttonevent()
