@@ -47,7 +47,7 @@ public class ARCharacterSpawner : MonoBehaviour
 
         Touch touch = Input.GetTouch(0);
 
-        if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+        if (IsTouchOverUI(touch.position))
             return;
 
         // 화면을 터치했을 때 평면과 교차하는지 확인
@@ -56,11 +56,11 @@ public class ARCharacterSpawner : MonoBehaviour
             if (raycastManager.Raycast(touch.position, hits, TrackableType.PlaneWithinPolygon))
             {
                 Pose hitPose = hits[0].pose;
-                characterPrefab = Instantiate(characterPrefab, hitPose.position, hitPose.rotation);
+                GameObject newprefab = Instantiate(characterPrefab, hitPose.position, hitPose.rotation);
 
                 Vector3 targetPos = Camera.main.transform.position;
-                targetPos.y = characterPrefab.transform.position.y;
-                characterPrefab.transform.LookAt(targetPos);
+                targetPos.y = newprefab.transform.position.y;
+                newprefab.transform.LookAt(targetPos);
 
             }
         }
@@ -72,7 +72,7 @@ public class ARCharacterSpawner : MonoBehaviour
         foreach (Prefabs key in Enum.GetValues(typeof(Prefabs)))
         {
 
-            string path = "Prefabs/"+key;
+            string path = "Prefabs/" + key;
             GameObject prefab = Resources.Load<GameObject>(path);
 
             if (prefab != null)
@@ -82,11 +82,20 @@ public class ARCharacterSpawner : MonoBehaviour
         }
     }
 
+    bool IsTouchOverUI(Vector2 touchPos)
+    {
+        PointerEventData pointerData = new PointerEventData(EventSystem.current);
+        pointerData.position = touchPos;
 
+        List<RaycastResult> raycastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerData, raycastResults);
+
+        return raycastResults.Count > 0;
+    }
     void assignfunc()
     {
 
-        TipCanvas.changepreparedcharacter += buttonevent;
+        MainCanvas.changepreparedcharacter += buttonevent;
     }
 
     void buttonevent()

@@ -3,37 +3,35 @@ using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 
-public class Tentacle : MonoBehaviour
+public class TouchCanvas : MonoBehaviour
 {
 
-    public enum TentacleParts
+    public enum Objects
     {
-        TipSpike,
-        TipButton,
-        TipCanvas
+        Button,
+        Canvas
     }
-    private Dictionary<TentacleParts, GameObject> partMap = new Dictionary<TentacleParts, GameObject>();
+    private Dictionary<Objects, GameObject> partMap = new Dictionary<Objects, GameObject>();
 
     void Start()
     {
         CacheParts();
-        partMap[TentacleParts.TipCanvas].GetComponent<Canvas>().worldCamera = Camera.main;
-        partMap[TentacleParts.TipButton].GetComponent<Button>().onClick.AddListener(() => { Destroy(this.gameObject); });
-
+        partMap[Objects.Canvas].GetComponent<Canvas>().worldCamera = Camera.main;
+        partMap[Objects.Button].GetComponent<Button>().onClick.AddListener(() => { Destroy(this.transform.root.gameObject); });
     }
 
     void LateUpdate()
     {
-        if (partMap.TryGetValue(TentacleParts.TipButton, out GameObject btn))
+        
+        if (partMap.TryGetValue(Objects.Canvas, out GameObject cv))
         {
-            btn.transform.LookAt(Camera.main.transform);
+            cv.transform.LookAt(Camera.main.transform);
+            cv.transform.Rotate(0f, 180f, 0f);
+
         }
+        
     }
 
-    public void Retract()
-    {
-        Destroy(gameObject);
-    }
 
     private void CacheParts()
     {
@@ -41,7 +39,7 @@ public class Tentacle : MonoBehaviour
 
         foreach (Transform child in children)
         {
-            if (Enum.TryParse(child.name, out TentacleParts part))
+            if (Enum.TryParse(child.name, out Objects part))
             {
                 if (!partMap.ContainsKey(part))
                 {
