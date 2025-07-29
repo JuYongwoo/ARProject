@@ -8,22 +8,22 @@ public class TouchCanvas : MonoBehaviour
 
     public enum Objects
     {
-        Button,
-        Canvas
+        TouchCanvas,
+        TouchButton
     }
     private Dictionary<Objects, GameObject> partMap = new Dictionary<Objects, GameObject>();
 
     void Start()
     {
         CacheParts();
-        partMap[Objects.Canvas].GetComponent<Canvas>().worldCamera = Camera.main;
-        partMap[Objects.Button].GetComponent<Button>().onClick.AddListener(() => { Destroy(this.transform.root.gameObject); });
+        partMap[Objects.TouchCanvas].GetComponent<Canvas>().worldCamera = Camera.main;
+        partMap[Objects.TouchButton].GetComponent<Button>().onClick.AddListener(() => { Destroy(this.transform.root.gameObject); });
     }
 
     void LateUpdate()
     {
         
-        if (partMap.TryGetValue(Objects.Canvas, out GameObject cv))
+        if (partMap.TryGetValue(Objects.TouchCanvas, out GameObject cv))
         {
             cv.transform.LookAt(Camera.main.transform);
             cv.transform.Rotate(0f, 180f, 0f);

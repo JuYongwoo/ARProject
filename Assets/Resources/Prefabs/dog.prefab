@@ -2393,10 +2393,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2066896392038131574}
     m_Modifications:
+    - target: {fileID: 1091452767085544573, guid: 0bfaffb8473777c43b82678d6534c83b,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3772196647126459899, guid: 0bfaffb8473777c43b82678d6534c83b,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3772196647126459899, guid: 0bfaffb8473777c43b82678d6534c83b,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5490250453906908401, guid: 0bfaffb8473777c43b82678d6534c83b,
         type: 3}
       propertyPath: m_Name
-      value: Canvas
+      value: TouchCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 7178453089156784420, guid: 0bfaffb8473777c43b82678d6534c83b,
         type: 3}
@@ -2436,12 +2451,12 @@ PrefabInstance:
     - target: {fileID: 7178453089156784420, guid: 0bfaffb8473777c43b82678d6534c83b,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7178453089156784420, guid: 0bfaffb8473777c43b82678d6534c83b,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7178453089156784420, guid: 0bfaffb8473777c43b82678d6534c83b,
         type: 3}
