@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 
 public class TouchCanvas : MonoBehaviour
 {
-
     public enum Objects
     {
         TouchCanvas,
@@ -17,7 +17,10 @@ public class TouchCanvas : MonoBehaviour
     {
         CacheParts();
         partMap[Objects.TouchCanvas].GetComponent<Canvas>().worldCamera = Camera.main;
-        partMap[Objects.TouchButton].GetComponent<Button>().onClick.AddListener(() => { Destroy(this.transform.root.gameObject); });
+        partMap[Objects.TouchButton].GetComponent<Button>().onClick.AddListener(() =>
+        {
+            Destroy(gameObject.transform.root.gameObject);
+        });
     }
 
     void LateUpdate()

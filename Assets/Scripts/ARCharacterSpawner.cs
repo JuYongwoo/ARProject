@@ -26,6 +26,8 @@ public class ARCharacterSpawner : MonoBehaviour
     private Dictionary<Prefabs, GameObject> prefabmap;
     private Prefabs currentindex = Prefabs.dog;
 
+    private List<GameObject> spawnedObjects = new List<GameObject>();
+
     static public Action<string> changecharname;
 
     void Awake()
@@ -34,6 +36,7 @@ public class ARCharacterSpawner : MonoBehaviour
 
         initmap();
         assignfunc();
+        ArrowPanelObject.getTargets = () => spawnedObjects;
     }
 
     private void Start()
@@ -108,7 +111,7 @@ public class ARCharacterSpawner : MonoBehaviour
     {
         Array values = Enum.GetValues(typeof(Prefabs));
         currentindex = (Prefabs)(((int)currentindex + 1) % values.Length);
-        changecharname(currentindex.ToString());
+        //changecharname(currentindex.ToString()); //MainPanel속 텍스트를 바꾼다.
     }
 
     private void spawnRandomCharacter()
@@ -116,10 +119,10 @@ public class ARCharacterSpawner : MonoBehaviour
 
         Vector3 randomDir = UnityEngine.Random.onUnitSphere; // 길이 1, 모든 방향 포함
 
-        Vector3 spawnPosition = Camera.main.transform.position + randomDir * 3f;
+        Vector3 spawnPosition = Camera.main.transform.position + randomDir * 1f;
 
         GameObject go = Instantiate(prefabmap[currentindex], spawnPosition, Quaternion.identity);
 
-        ArrowPanelObject.targets.Add(go.transform);
+        spawnedObjects.Add(go);
     }
 }

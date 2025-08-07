@@ -56,7 +56,7 @@ public class MainPanelObject : MonoBehaviour
     void assignfunc()
     {
 
-        ARCharacterSpawner.changecharname += changetext;
+        ARCharacterSpawner.changecharname = changetext;
     }
 
     void changetext(string str)
