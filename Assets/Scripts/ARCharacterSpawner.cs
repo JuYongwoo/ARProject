@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using static UnityEngine.GraphicsBuffer;
 
 public class ARCharacterSpawner : MonoBehaviour
 {
@@ -16,14 +18,13 @@ public class ARCharacterSpawner : MonoBehaviour
     }
 
 
-    private GameObject characterPrefab;
 
     private ARRaycastManager raycastManager;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
 
     private Dictionary<Prefabs, GameObject> prefabmap;
-    private Prefabs nowindex = Prefabs.dog;
+    private Prefabs currentindex = Prefabs.dog;
 
     static public Action<string> changecharname;
 
@@ -38,6 +39,7 @@ public class ARCharacterSpawner : MonoBehaviour
     private void Start()
     {
         buttonevent(); //초기 1회 실행
+        InvokeRepeating(nameof(spawnRandomCharacter), 3f, 10f);
     }
 
     void Update()
@@ -50,13 +52,15 @@ public class ARCharacterSpawner : MonoBehaviour
         if (IsTouchOverUI(touch.position))
             return;
 
+
+        /*
         // 화면을 터치했을 때 평면과 교차하는지 확인
         if (touch.phase == TouchPhase.Began)
         {
             if (raycastManager.Raycast(touch.position, hits, TrackableType.PlaneWithinPolygon))
             {
                 Pose hitPose = hits[0].pose;
-                GameObject newprefab = Instantiate(characterPrefab, hitPose.position, hitPose.rotation);
+                GameObject newprefab = Instantiate(prefabmap[nowindex], hitPose.position, hitPose.rotation);
 
                 Vector3 targetPos = Camera.main.transform.position;
                 targetPos.y = newprefab.transform.position.y;
@@ -64,8 +68,10 @@ public class ARCharacterSpawner : MonoBehaviour
 
             }
         }
+        */
+
     }
-    void initmap()
+    private void initmap()
     {
         prefabmap = new Dictionary<Prefabs, GameObject>();
 
@@ -82,7 +88,7 @@ public class ARCharacterSpawner : MonoBehaviour
         }
     }
 
-    bool IsTouchOverUI(Vector2 touchPos)
+    private bool IsTouchOverUI(Vector2 touchPos)
     {
         PointerEventData pointerData = new PointerEventData(EventSystem.current);
         pointerData.position = touchPos;
@@ -92,20 +98,28 @@ public class ARCharacterSpawner : MonoBehaviour
 
         return raycastResults.Count > 0;
     }
-    void assignfunc()
+    private void assignfunc()
     {
 
-        MainCanvas.changepreparedcharacter += buttonevent;
+        MainPanelObject.changepreparedcharacter += buttonevent;
     }
 
-    void buttonevent()
+    private void buttonevent()
     {
         Array values = Enum.GetValues(typeof(Prefabs));
-        nowindex = (Prefabs)(((int)nowindex + 1) % values.Length);
-
-        characterPrefab = prefabmap[nowindex];
-        changecharname(nowindex.ToString());
+        currentindex = (Prefabs)(((int)currentindex + 1) % values.Length);
+        changecharname(currentindex.ToString());
     }
 
+    private void spawnRandomCharacter()
+    {
 
+        Vector3 randomDir = UnityEngine.Random.onUnitSphere; // 길이 1, 모든 방향 포함
+
+        Vector3 spawnPosition = Camera.main.transform.position + randomDir * 3f;
+
+        GameObject go = Instantiate(prefabmap[currentindex], spawnPosition, Quaternion.identity);
+
+        ArrowPanelObject.targets.Add(go.transform);
+    }
 }
