@@ -20,7 +20,7 @@ public class ArrowPanelObject : MonoBehaviour
 
     private void Awake()
     {
-        initmapandmapping();
+        arraowObjectsmap = Util.cacheDictionaryUIObjs<ArrowObjects>(this.gameObject);
 
     }
 
@@ -33,23 +33,6 @@ public class ArrowPanelObject : MonoBehaviour
     void Update()
     {
         updateArrows();
-    }
-
-    void initmapandmapping()
-    {
-        arraowObjectsmap = new Dictionary<ArrowObjects, GameObject>();
-        Transform[] childrens = GetComponentsInChildren<Transform>();
-        foreach (ArrowObjects btn in Enum.GetValues(typeof(ArrowObjects)))
-        {
-            foreach (Transform t in childrens)
-            {
-                if (t.name == btn.ToString())
-                {
-                    arraowObjectsmap[btn] = t.gameObject;
-                    break;
-                }
-            }
-        }
 
     }
 

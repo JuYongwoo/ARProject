@@ -18,29 +18,12 @@ public class MainPanelObject : MonoBehaviour
     
     void Awake()
     {
-        initmapandmapping();
+        buttonmap = Util.cacheDictionaryUIObjs<buttons>(this.gameObject);
         assignbuttonevent();
         assignfunc();
     }
 
 
-    void initmapandmapping()
-    {
-        buttonmap = new Dictionary<buttons, GameObject>();
-        Transform[] childrens = GetComponentsInChildren<Transform>();
-        foreach (buttons btn in Enum.GetValues(typeof(buttons)))
-        {
-            foreach (Transform t in childrens)
-            {
-                if (t.name == btn.ToString())
-                {
-                    buttonmap[btn] = t.gameObject;
-                    break;
-                }
-            }
-        }
-
-    }
 
     void assignbuttonevent()
     {

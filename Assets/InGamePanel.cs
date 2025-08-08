@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,27 +10,25 @@ public class InGamePanel : MonoBehaviour
     {
         EnemyCount
     }
-    // Start is called before the first frame update
-    public static int EnemyCount = 0;
+
     private int lastEnemtCount;
+    private int enemyCount = 0;
     private Dictionary<InGameObjects, GameObject> InGameObjectsMap = new Dictionary<InGameObjects, GameObject>();
 
     private void Awake()
     {
+        EnemyBase.enemyCountDelta = (int delta) =>
+        {
+            enemyCount += delta;
+        };
         InitInGameObjectsMap();
     }
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if(lastEnemtCount != EnemyCount)
+        if(lastEnemtCount != enemyCount)
         {
-            lastEnemtCount = EnemyCount;
+            lastEnemtCount = enemyCount;
             InGameObjectsMap[InGameObjects.EnemyCount].GetComponent<Text>().text = "³²Àº Àû: " + lastEnemtCount;
 
         }

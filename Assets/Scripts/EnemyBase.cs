@@ -6,12 +6,12 @@ using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
 {
-    static public Action<SceneManager.Sounds> playaudio;
-
+    static public Action<MainSceneObject.Sounds> playaudio;
+    static public Action<int> enemyCountDelta;
     virtual protected void Start()
     {
-        InGamePanel.EnemyCount++;
-        playaudio(SceneManager.Sounds.spawn);
+        enemyCountDelta(1);
+        playaudio(MainSceneObject.Sounds.spawn);
     }
 
     virtual protected void Update()
@@ -25,8 +25,8 @@ public class EnemyBase : MonoBehaviour
     }
     private void OnDestroy()
     {
-        playaudio(SceneManager.Sounds.destroy);
-        InGamePanel.EnemyCount--;
+        playaudio(MainSceneObject.Sounds.destroy);
+        enemyCountDelta(-1);
 
 
     }
