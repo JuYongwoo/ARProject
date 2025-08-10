@@ -1,6 +1,6 @@
-![게임 스크린샷1](https://github.com/JuYongWoo/ARProject/blob/main/Images/ScreenShot1.png)
-![게임 스크린샷1](https://github.com/JuYongWoo/ARProject/blob/main/Images/ScreenShot2.png)
-![게임 스크린샷2](https://github.com/JuYongWoo/ARProject/blob/main/Images/ScreenShot3.png)
+![게임 스크린샷1](https://github.com/JuYongWoo/ARProject/blob/main/Images/ScreenShot1.jpg)
+![게임 스크린샷1](https://github.com/JuYongWoo/ARProject/blob/main/Images/ScreenShot2.jpg)
+![게임 스크린샷2](https://github.com/JuYongWoo/ARProject/blob/main/Images/ScreenShot3.jpg)
 
 
 # 프로젝트 소개
