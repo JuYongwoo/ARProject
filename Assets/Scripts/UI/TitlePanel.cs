@@ -19,7 +19,7 @@ public class TitlePanel : MonoBehaviour
 
     private void Awake()
     {
-        titleMap = Util.cacheDictionaryUIObjs<TitleObjs>(this.gameObject);
+        titleMap = Util.mapDictionarywithEnum<TitleObjs>(this.gameObject);
     }
     // Start is called before the first frame update
     void Start()

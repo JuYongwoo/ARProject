@@ -18,7 +18,7 @@ public class MainPanelObject : MonoBehaviour
     
     void Awake()
     {
-        buttonmap = Util.cacheDictionaryUIObjs<buttons>(this.gameObject);
+        buttonmap = Util.mapDictionarywithEnum<buttons>(this.gameObject);
         assignbuttonevent();
         assignfunc();
     }

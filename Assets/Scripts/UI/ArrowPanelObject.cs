@@ -20,7 +20,7 @@ public class ArrowPanelObject : MonoBehaviour
 
     private void Awake()
     {
-        arraowObjectsmap = Util.cacheDictionaryUIObjs<ArrowObjects>(this.gameObject);
+        arraowObjectsmap = Util.mapDictionarywithEnum<ArrowObjects>(this.gameObject);
 
     }
 
