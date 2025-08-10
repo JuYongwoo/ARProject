@@ -18,10 +18,10 @@ public class ARCharacterSpawner : MonoBehaviour
     }
 
 
-
+    /*
     private ARRaycastManager raycastManager;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
-
+*/
 
     private Dictionary<Prefabs, GameObject> prefabmap;
     private Prefabs currentindex = Prefabs.dog;
@@ -32,9 +32,9 @@ public class ARCharacterSpawner : MonoBehaviour
 
     void Awake()
     {
-        raycastManager = GetComponent<ARRaycastManager>();
+        //raycastManager = GetComponent<ARRaycastManager>();
 
-        initmap();
+        prefabmap = Util.mapDictionaryWithEnumAndLoad<Prefabs, GameObject>("Prefabs");
         assignfunc();
         ArrowPanelObject.getTargets = () => spawnedObjects;
     }
@@ -74,22 +74,6 @@ public class ARCharacterSpawner : MonoBehaviour
         */
 
     }
-    private void initmap()
-    {
-        prefabmap = new Dictionary<Prefabs, GameObject>();
-
-        foreach (Prefabs key in Enum.GetValues(typeof(Prefabs)))
-        {
-
-            string path = "Prefabs/" + key;
-            GameObject prefab = Resources.Load<GameObject>(path);
-
-            if (prefab != null)
-            {
-                prefabmap.Add(key, prefab);
-            }
-        }
-    }
 
     private bool IsTouchOverUI(Vector2 touchPos)
     {
@@ -114,14 +98,14 @@ public class ARCharacterSpawner : MonoBehaviour
         //changecharname(currentindex.ToString()); //MainPanel속 텍스트를 바꾼다.
     }
 
-    private void spawnRandomCharacter()
+    private void spawnRandomCharacter() // dog, unitychan, tentacle 중 하나를 랜덤으로 생성 // 현재는 dog만 생성됨
     {
 
         Vector3 randomDir = UnityEngine.Random.onUnitSphere; // 길이 1, 모든 방향 포함
 
         Vector3 spawnPosition = Camera.main.transform.position + randomDir * 1f;
 
-        GameObject go = Instantiate(prefabmap[currentindex], spawnPosition, Quaternion.identity);
+        GameObject go = Instantiate(prefabmap[Prefabs.dog], spawnPosition, Quaternion.identity);
 
         spawnedObjects.Add(go);
     }
